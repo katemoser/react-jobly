@@ -37,6 +37,8 @@ class JoblyApi {
   }
 
   // Individual API routes
+  //REMEMBER: If we ever need to translate/edit API data this is the place to do it
+  //NOT in the component
 
   /** Get details on a company by handle. 
    * 
