@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import {useParams} from "react-router-dom";
 import JoblyApi from "./api";
+import JobList from "./JobList";
 
 /**
  * Company detail page with company description and list of jobs
@@ -8,14 +9,18 @@ import JoblyApi from "./api";
  * props: none
  * 
  * state: company
+ *  ex. { handle, name, description, numEmployees, logoUrl, jobs }
+*       where jobs is [{ id, title, salary, equity }, ...]
  * 
- * Router -> Company detail -> Joblist
+ * Router -> CompanyDetail -> Joblist
  */
  function CompanyDetail(){
     const [company, setCompany] = useState(null);
     const params = useParams();
-    console.log("params: ", params);
 
+    console.log("Company Detail: ", company, params);
+
+    /** Fetches data for specific company using handle and sets it to state */
     useEffect(function fetchCompanyOnMount(){
         async function fetchcompanyInfo(){
             setCompany(await JoblyApi.getCompany(params.companyHandle));
@@ -29,9 +34,7 @@ import JoblyApi from "./api";
         <div>
             <h1>{company.name}</h1>
             <p>{company.description}</p>
-            <ul>
-                {company.jobs.map(job => <li key={job.id}>{job.title}</li>)}
-            </ul>
+            <JobList jobs={company.jobs} />
         </div>
     )
 

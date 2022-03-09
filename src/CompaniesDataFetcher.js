@@ -9,6 +9,7 @@ import SearchForm from "./SearchForm";
  * Props: None
  * 
  * State: List of company objects
+ *  ex. [ { handle, name, description, numEmployees, logoUrl }, ...]
  * 
  * Routes -> CompaniesDataFetcher -> {SearchForm, CompanyList}
  */
@@ -17,6 +18,7 @@ function CompaniesDataFetcher(){
 
     console.log("COMPANIESDATAFETCHER: ", companies);
 
+    /** Fetches a list of all companies and sets to state on mount */
     useEffect(function fetchCompaniesWhenMounted() {
         async function fetchCompanies() {
             setCompanies(await JoblyApi.getCompanies());
@@ -24,8 +26,10 @@ function CompaniesDataFetcher(){
         fetchCompanies();
     }, []);
 
-    function searchCompanies(){
-        console.log("Searcching companies!");
+    // TODO: Consider having constants for response from API GET request
+    /** Fetches list of companies filtered by search term and sets it as state */
+    async function searchCompanies(searchTerm){
+        setCompanies(await JoblyApi.getCompanies({ name: searchTerm}));
     }
 
     if (!companies) return <p>Loading...</p>

@@ -15,9 +15,9 @@ function CompanyCard({company}) {
     return (
         <div>
             <Link to={`/companies/${company.handle}`}> 
-            <h1>{company.name}</h1>
-            <p>{company.description}</p>
-            <img src={company.logoUrl} alt="company logo"></img>
+                <h1>{company.name}</h1>
+                <p>{company.description}</p>
+                <img src={company.logoUrl} alt="company logo"></img>
             </Link>
         </div>
     )
