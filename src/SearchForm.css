@@ -1,0 +1,14 @@
+.Jobly-SearchForm{
+    margin-top:5em;
+}
+
+.Jobly-SearchForm input {
+    padding: 1em;
+    font-size: larger;
+    width: 20em;
+}
+
+.Jobly-SearchForm button {
+    padding: 1em;
+    font-size: larger;
+}

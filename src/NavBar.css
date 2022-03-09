@@ -1,0 +1,15 @@
+.Jobly-NavBar{
+    padding: 1em;
+    background-color: azure;
+    border-bottom:.2em solid darkgray;
+}
+
+.Jobly-NavBar a{
+    margin:0 1em;
+    text-decoration: none;
+}
+
+.Jobly-NavBar a.active{
+    margin:0 1em;
+    font-weight: bold;
+}

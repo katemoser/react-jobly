@@ -1,4 +1,5 @@
 import React from "react";
+import "./Card.css";
 
 /** JobCard component is a card with job info
  * 
@@ -12,7 +13,7 @@ import React from "react";
  */
 function JobCard({job}) {
     return (
-        <div>
+        <div className="Jobly-JobCard Card">
             <h3>{job.title}</h3>
             <p>Salary: {job.salary}</p>
             <p>Equity: {job.equity}</p>

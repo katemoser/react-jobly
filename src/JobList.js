@@ -1,5 +1,6 @@
 import React from "react";
 import JobCard from "./JobCard";
+import "./List.css";
 
 /** JobList component shows a list of jobs obtained from 
  * JobsDataFetcher component
@@ -14,7 +15,7 @@ import JobCard from "./JobCard";
  */
 function JobList({jobs}) {
     return (
-        <ul>
+        <ul className="Jobly-Joblist List">
             {jobs.map(job => 
             <li key={job.id}><JobCard job={job}/></li>)}
         </ul>

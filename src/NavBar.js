@@ -1,5 +1,6 @@
 import React from "react";
 import {NavLink}  from "react-router-dom";
+import "./NavBar.css";
 
 /**
  * NavBar for our site with links to homepage, companies, jobs

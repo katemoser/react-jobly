@@ -1,4 +1,5 @@
 import { useState} from "react";
+import "./SearchForm.css";
 
 /**
  * Search bar component for use in various other components
