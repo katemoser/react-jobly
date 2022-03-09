@@ -1,7 +1,7 @@
 import JoblyApi from "./api";
 import {useState, useEffect} from "react";
 import CompanyList from "./CompanyList";
-// import SearchForm from "./SearchForm";
+import SearchForm from "./SearchForm";
 
 /** CompaniesDataFetcher component fetches a list of company objects from API
  * GET request and renders SearchForm and CompanyList components
@@ -22,12 +22,17 @@ function CompaniesDataFetcher(){
             setCompanies(await JoblyApi.getCompanies());
         };
         fetchCompanies();
-    }, [])
+    }, []);
+
+    function searchCompanies(){
+        console.log("Searcching companies!");
+    }
 
     if (!companies) return <p>Loading...</p>
 
     return (
         <div>
+            <SearchForm handleSave={searchCompanies}/>
             <CompanyList companies={companies} />
         </div>
     )
