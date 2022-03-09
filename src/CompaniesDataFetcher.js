@@ -1,11 +1,36 @@
+import JoblyApi from "./api";
+import {useState, useEffect} from "react";
+import CompanyList from "./CompanyList";
+// import SearchForm from "./SearchForm";
 
-/**
+/** CompaniesDataFetcher component fetches a list of company objects from API
+ * GET request and renders SearchForm and CompanyList components
  * 
+ * Props: None
+ * 
+ * State: List of company objects
+ * 
+ * Routes -> CompaniesDataFetcher -> {SearchForm, CompanyList}
  */
 function CompaniesDataFetcher(){
-    //TODO: Add in what we're gooing to render in dummy component
-    //Console.log which component and what data is rendering
-    return <p>CompaniesDataFetcher</p>
+    const [companies, setCompanies] = useState(null);
+
+    console.log("COMPANIESDATAFETCHER: ", companies);
+
+    useEffect(function fetchCompaniesWhenMounted() {
+        async function fetchCompanies() {
+            setCompanies(await JoblyApi.getCompanies());
+        };
+        fetchCompanies();
+    }, [])
+
+    if (!companies) return <p>Loading...</p>
+
+    return (
+        <div>
+            <CompanyList companies={companies} />
+        </div>
+    )
 }
 
 export default CompaniesDataFetcher;
