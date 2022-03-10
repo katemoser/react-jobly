@@ -4,6 +4,9 @@ import CompaniesDataFetcher from "./CompaniesDataFetcher";
 import JobsDataFetcher from "./JobsDataFetcher";
 import CompanyDetail from "./CompanyDetail";
 import HomePage from "./HomePage";
+import Profile from "./Profile";
+import Signup from "./Signup";
+import Login from "./Login";
 
 /**Routes component -- handles rendering for site based on url
  * 
@@ -13,9 +16,18 @@ import HomePage from "./HomePage";
  * 
  * App -> Routes -> {CompaniesDataFetcher, JobsDataFetcher, HomePage, Company Detail}
  */
-function Routes(){
+function Routes({ signup, login, editProfile, applyToJob }){
     return (
        <Switch>
+           <Route exact path="/login">
+               <Login handleLogin={login}/>
+            </Route>
+						<Route exact path="/signup">
+               <Signup handleSignup={signup}/>
+            </Route>
+						<Route exact path="/profile">
+               <Profile handleEditProfile={editProfile}/>
+            </Route>
            <Route exact path="/companies">
                <CompaniesDataFetcher />
             </Route>
