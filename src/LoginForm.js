@@ -34,9 +34,9 @@ function LoginForm({ handleLogin }) {
 
     return (
         <form onSubmit={handleSubmit}>
-            <label for="username-input">Username</label>
+            <label htmlFor="username-input">Username</label>
             <input id="username-input" name="username" onChange={handleChange}></input>
-            <label for="password-input">Password</label>
+            <label htmlFor="password-input">Password</label>
             <input id="password-input" name="password" onChange={handleChange}></input>
             <button>Submit</button>
         </form>);

@@ -5,7 +5,7 @@ import JobsDataFetcher from "./JobsDataFetcher";
 import CompanyDetail from "./CompanyDetail";
 import HomePage from "./HomePage";
 import Profile from "./Profile";
-import Signup from "./Signup";
+import SignupForm from "./SignupForm";
 import LoginForm from "./LoginForm";
 
 /**Routes component -- handles rendering for site based on url
@@ -23,7 +23,7 @@ function Routes({ signup, login, editProfile }){
                <LoginForm handleLogin={login}/>
             </Route>
 						<Route exact path="/signup">
-               <Signup handleSignup={signup}/>
+               <SignupForm handleSignup={signup}/>
             </Route>
 						<Route exact path="/profile">
                <Profile handleEditProfile={editProfile}/>
