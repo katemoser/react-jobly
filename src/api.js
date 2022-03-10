@@ -80,6 +80,59 @@ class JoblyApi {
     return res.jobs;
   }
 
+  /**Get user info 
+   * 
+   * input: username
+   * 
+   * returns  user information like { username, firstName, lastName, isAdmin, jobs }
+   *   where jobs is { id, title, companyHandle, companyName, state }
+   */
+   static async getUser(username){
+    const res = await this.request(`users/${username}`);
+    return res.user;
+  } 
+
+  /**Get token from API with valid username/password combo
+   * 
+   * input: {username, password}
+   * 
+   * returns token (string)
+   */
+  static async loginUser(credentials){
+    const res = await this.request('auth/token/', credentials, 'post');
+    console.log("TOKEN:", res.token);
+    JoblyApi.token = res.token;
+    return res.token;
+  } 
+
+  /**Register new user with valid user info 
+   * 
+   * input: {username, password, firstName, lastName, email}
+   * 
+   * set static token to returned token (string)
+   */
+   static async registerNewUser(userInfo){
+    const res = await this.request('auth/register/', userInfo, 'post');
+    console.log("TOKEN:", res.token);
+    JoblyApi.token = res.token;
+    return res.token;
+  } 
+
+  /**Edit profile information
+   * 
+   * input: username, newUserInfo (obj)
+   *  newUserInfo can include: { firstName, lastName, password, email }
+   * 
+   * returns updated user information like { firstName, lastName, password, email }
+   */
+   static async updateProfile(username, newUserInfo){
+    const res = await this.request(`users/${username}`, newUserInfo, 'patch');
+    return res.user;
+  } 
+
+  
+
+
 }
 
 export default JoblyApi;
