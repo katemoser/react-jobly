@@ -35,7 +35,11 @@ function SearchForm({handleSave}){
 
     return (
         <form onSubmit={handleSubmit} className="Jobly-SearchForm">
-            <input onChange={handleChange} name="searchInput"></input>
+            <input 
+                onChange={handleChange} 
+                name="searchInput" 
+                placeholder="Enter search term">
+            </input>
             <button>Search</button>
         </form>
     )

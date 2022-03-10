@@ -6,9 +6,15 @@
     padding: 1em;
     font-size: larger;
     width: 20em;
+    border-radius: 8px;
+    border: none;
 }
 
 .Jobly-SearchForm button {
     padding: 1em;
     font-size: larger;
+    background-color: #0d6efd;
+    border-radius: 8px;
+    border: none;
+    color: white;
 }

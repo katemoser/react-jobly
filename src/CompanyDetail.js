@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import {useParams} from "react-router-dom";
 import JoblyApi from "./api";
 import JobList from "./JobList";
+import Loading from "./Loading";
 
 /**
  * Company detail page with company description and list of jobs
@@ -28,7 +29,7 @@ import JobList from "./JobList";
         fetchcompanyInfo();
     }, [params.companyHandle]);
 
-    if(!company) return <p>Loading...</p>;
+    if(!company) return <Loading />
 
     return (
         <div>

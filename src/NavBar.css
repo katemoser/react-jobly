@@ -2,14 +2,29 @@
     padding: 1em;
     background-color: azure;
     border-bottom:.2em solid darkgray;
+    height: 1.25em;
 }
 
 .Jobly-NavBar a{
     margin:0 1em;
     text-decoration: none;
+    color: #333333;
+}
+
+.Jobly-NavBar a:hover{
+    color: darkblue;
+    font-size: larger;
 }
 
 .Jobly-NavBar a.active{
     margin:0 1em;
     font-weight: bold;
+}
+
+.Jobly-NavBar .Brand {
+    float: left;
+}
+
+.Jobly-NavBar .NavLink {
+    float: right;
 }

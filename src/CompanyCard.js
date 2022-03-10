@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Card.css";
+import "./CompanyCard.css";
 
 /** CompanyCard component is a clickable card with company info
  * 

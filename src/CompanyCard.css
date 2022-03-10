@@ -1,0 +1,9 @@
+.Jobly-CompanyCard a{
+    text-decoration: none;
+    color: #333333;
+}
+
+.Jobly-CompanyCard a:hover{
+    color: darkblue;
+    font-weight: bolder;
+}

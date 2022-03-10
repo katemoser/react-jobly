@@ -2,6 +2,7 @@ import JoblyApi from "./api";
 import {useState, useEffect} from "react";
 import JobList from "./JobList";
 import SearchForm from "./SearchForm";
+import Loading from "./Loading";
 
 /** JobsDataFetcher component fetches a list of job objects from API
  * GET request and renders SearchForm and JobList components
@@ -32,7 +33,7 @@ import SearchForm from "./SearchForm";
         setJobs(await JoblyApi.getJobs({ title: searchTerm}));
     }
 
-    if (!jobs) return <p>Loading...</p>
+    if (!jobs) return <Loading />
 
     return (
         <div>

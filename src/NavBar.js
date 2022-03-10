@@ -15,9 +15,9 @@ import "./NavBar.css";
 function NavBar(){
     return (
         <nav className="Jobly-NavBar">
-            <NavLink exact to="/" >Jobly</NavLink>
-            <NavLink exact to="/companies" >Companies</NavLink>
-            <NavLink exact to="/jobs" >Jobs</NavLink>
+            <NavLink className="Brand" exact to="/" >Jobly</NavLink>
+            <NavLink className="NavLink" exact to="/companies" >Companies</NavLink>
+            <NavLink className="NavLink" exact to="/jobs" >Jobs</NavLink>
         </nav>
     )
 }
