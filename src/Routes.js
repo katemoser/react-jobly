@@ -6,7 +6,7 @@ import CompanyDetail from "./CompanyDetail";
 import HomePage from "./HomePage";
 import Profile from "./Profile";
 import Signup from "./Signup";
-import Login from "./Login";
+import LoginForm from "./LoginForm";
 
 /**Routes component -- handles rendering for site based on url
  * 
@@ -16,11 +16,11 @@ import Login from "./Login";
  * 
  * App -> Routes -> {CompaniesDataFetcher, JobsDataFetcher, HomePage, Company Detail}
  */
-function Routes({ signup, login, editProfile, applyToJob }){
+function Routes({ signup, login, editProfile }){
     return (
        <Switch>
            <Route exact path="/login">
-               <Login handleLogin={login}/>
+               <LoginForm handleLogin={login}/>
             </Route>
 						<Route exact path="/signup">
                <Signup handleSignup={signup}/>
