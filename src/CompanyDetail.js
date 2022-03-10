@@ -3,6 +3,7 @@ import {useParams} from "react-router-dom";
 import JoblyApi from "./api";
 import JobList from "./JobList";
 import Loading from "./Loading";
+import "./CompanyDetail.css";
 
 /**
  * Company detail page with company description and list of jobs
@@ -32,9 +33,9 @@ import Loading from "./Loading";
     if(!company) return <Loading />
 
     return (
-        <div>
+        <div className="Jobly-CompanyDetail">
             <h1>{company.name}</h1>
-            <p>{company.description}</p>
+            <h2>{company.description}</h2>
             <JobList jobs={company.jobs} />
         </div>
     )
