@@ -21,14 +21,14 @@ import { useContext } from "react";
 function Routes({ signup, login, editProfile }) {
 
    const { currentUser } = useContext(UserContext);
-   console.log("CURRENT USER",currentUser);
+   console.log("ROUTES CURRENT USER",currentUser);
 
    return (
       <Switch>
          <Route exact path="/login">
             <LoginForm handleLogin={login} />
-
          </Route>
+
          <Route exact path="/signup">
             <SignupForm handleSignup={signup} />
          </Route>
@@ -43,7 +43,6 @@ function Routes({ signup, login, editProfile }) {
             {currentUser ?
                <CompaniesDataFetcher /> :
                <Redirect to="/login" />}
-
          </Route>
 
          <Route exact path="/jobs">
@@ -51,14 +50,12 @@ function Routes({ signup, login, editProfile }) {
 
                <JobsDataFetcher /> :
                <Redirect to="/login" />}
-
          </Route>
 
          <Route exact path="/companies/:companyHandle">
             {currentUser ?
                <CompanyDetail /> :
                <Redirect to="/login" />}
-
          </Route>
 
          <Route exact path="/">

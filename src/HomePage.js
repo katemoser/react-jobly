@@ -16,6 +16,7 @@ import { Link } from "react-router-dom";
  */
  function HomePage(){
 
+    console.log("HOMEPAGE RENDERED")
     const { currentUser } = useContext(UserContext);
 
      return (

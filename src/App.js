@@ -42,9 +42,12 @@ function App() {
 
   /** Updates current user based on token */
   useEffect(function fetchUserWhenTokenChanges() {
-    if (token) {
+    console.log("APP EFFECT TOKEN", token)
+    if (token !== null) {
+      console.log("You shouldn't be here!", token);
+
       const decodedToken = jwt_decode(JoblyApi.token);
-      console.log("Fetch decodedtoken", decodedToken);
+      
       const username = decodedToken.username;
 
       async function fetchUser(username) {
@@ -81,13 +84,15 @@ function App() {
     console.log("LOGOUT FUNCTION IN APP");
     JoblyApi.logOutUser();
     setToken(null);
-    localStorage.setItem("token", null);
+    localStorage.removeItem("token");
   }
 
   /** TODO: DOESNT EXIST YET */
   function editProfile() {
     console.log("EDIT PROFILE IN APP");
   }
+
+  console.log("CURRENT USER =", currentUser);
 
   return (
     <div className="App">

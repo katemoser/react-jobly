@@ -14,6 +14,9 @@ import { Redirect } from "react-router-dom";
  */
 function LoginForm({ handleLogin }) {
     // TODO: Consider not putting quotes for these keys
+
+    console.log("LOGIN FORM I RENDERED");
+
     const initialData = {"username": "", "password": ""}
 
     const [formData, setFormData] = useState(initialData);
