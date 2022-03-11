@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom";
 import { useContext } from "react";
 import UserContext from "./userContext";
 
-/** LoginForm component, which displays login form for non-logged-in user
+/** EditProfileForm component, which displays form to edit user info for logged-in user
  * 
  * Props:
  *  handleSaveChanges : function that calls function in App component to update a user via the API
@@ -12,14 +12,14 @@ import UserContext from "./userContext";
  *  - formData (controlled component)
  *  - formSubmitted : a boolean that is toggled when form is submitted
  * 
- * App -> Routes -> LoginForm
+ * App -> Routes -> Profile -> EditProfileForm
  */
 function EditProfileForm({ handleSaveChanges }) {
     //get the user from context and set to initial data
     const { currentUser } = useContext(UserContext);
     console.log(currentUser);
 
-
+    // TODO: object shorthand
     const initialData = {
         username: currentUser.username,
         firstName: currentUser.firstName,
@@ -41,6 +41,7 @@ function EditProfileForm({ handleSaveChanges }) {
         });
     }
 
+    /** Upon submit, calls parent function to update current user info */
     async function handleSubmit(evt) {
         evt.preventDefault();
         await handleSaveChanges({
@@ -56,6 +57,7 @@ function EditProfileForm({ handleSaveChanges }) {
         return <Redirect push to="/" />
     }
 
+    // TODO: Add required attributes for inputs
     return (
         <form onSubmit={handleSubmit}>
             <label htmlFor="username-input">Username</label>

@@ -32,16 +32,10 @@ function App() {
   }
 
   JoblyApi.token = initialToken // null or token stored in local storage
-
   
   const [currentUser, setCurrentUser] = useState(null);
-
-  // console.log("LOCAL STORAGE", localStorage.getItem("token"));
-  // console.log("API TOKEN", JoblyApi.token);
   
   const [isLoggedIn, setIsLoggedIn] = useState(isRemembered);
-
-  console.log(`APP: currentUser: ${currentUser?.username}, token ${JoblyApi.token}`);
 
   /** Updates current user based on token */
   useEffect(function fetchUserWhenTokenChanges() {
@@ -52,7 +46,6 @@ function App() {
 
       async function fetchUser(username) {
         const userResult = await JoblyApi.getUser(username);
-        console.log("App useEffect FetchUserWhenTokenChanges", userResult)
         setCurrentUser(userResult);
       }
       fetchUser(username);
@@ -64,7 +57,6 @@ function App() {
 
   /** Signs up new user */
   async function signup(signupFormData) {
-    console.log("SIGNUP FUNCTION IN APP");
     const token = await JoblyApi.registerNewUser(signupFormData);
     localStorage.setItem("token", token);
     setIsLoggedIn(true);
@@ -73,28 +65,23 @@ function App() {
   // TODO: TRY CATCH FOR INCORRECT PW FOR BETTER UI
   /** Logs in new user */
   async function login(loginFormData) {
-    console.log("LOGIN FUNCTION IN APP");
     const token = await JoblyApi.loginUser(loginFormData);
     localStorage.setItem("token", token);
     setIsLoggedIn(true);
   }
 
-  /** TODO: DOESNT EXIST YET */
+  /** Edits user profile */
   async function editProfile(editProfileFormData) {
-    console.log("EDIT PROFILE IN APP. formData:", editProfileFormData);
     const user = await JoblyApi.updateProfile(currentUser.username, editProfileFormData);
     setCurrentUser(user);
   }
 
   /** Logs out user */
   async function logout() {
-    console.log("LOGOUT FUNCTION IN APP");
     await JoblyApi.logOutUser();
     localStorage.removeItem("token");
     setIsLoggedIn(false);
   }
-
-  console.log("CURRENT USER =", currentUser);
 
   return (
     <div className="App">

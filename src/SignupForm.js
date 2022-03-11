@@ -1,4 +1,4 @@
-import {useState} from "react";
+import { useState } from "react";
 import { Redirect } from "react-router-dom";
 
 /** SignupForm for non-logged-in user
@@ -10,30 +10,29 @@ import { Redirect } from "react-router-dom";
  *  - formData (controlled component)
  *  - formSubmitted : a boolean that is toggled when form is submitted
  * 
- * 
  * App -> Routes -> SignupForm
  */
- function SignupForm({handleSignup}) {
+function SignupForm({ handleSignup }) {
 
     const initialData = {
-        username: "", 
+        username: "",
         password: "",
         firstName: "",
         lastName: "",
         email: "",
-}
+    }
 
     const [formData, setFormData] = useState(initialData);
     const [formSubmitted, setFormSubmitted] = useState(false);
 
     /** Updates state with form input value */
-    function handleChange(evt){
+    function handleChange(evt) {
         const fieldName = evt.target.name;
         const value = evt.target.value;
 
         setFormData(currData => {
             currData[fieldName] = value;
-            return {...currData};
+            return { ...currData };
         });
     }
 
@@ -48,23 +47,50 @@ import { Redirect } from "react-router-dom";
     if (formSubmitted) {
         return <Redirect push to="/" />
     }
-    // TODO: type input for password and email and REQUIRED attribute!!
+    
     return (
         <form onSubmit={handleSubmit}>
             <label htmlFor="username-input">Username:</label>
-            <input id="username-input" name="username" onChange={handleChange}></input>
+            <input
+                id="username-input"
+                name="username"
+                onChange={handleChange}
+                required>
+            </input>
 
             <label htmlFor="password-input">Password:</label>
-            <input id="password-input" name="password" onChange={handleChange}></input>
+            <input
+                id="password-input"
+                name="password"
+                onChange={handleChange}
+                type="password"
+                required>
+            </input>
 
             <label htmlFor="firstName-input">First Name:</label>
-            <input id="firstName-input" name="firstName" onChange={handleChange}></input>
+            <input
+                id="firstName-input"
+                name="firstName"
+                onChange={handleChange}
+                required>
+            </input>
 
             <label htmlFor="lastName-input">Last Name:</label>
-            <input id="lastName-input" name="lastName" onChange={handleChange}></input>
+            <input
+                id="lastName-input"
+                name="lastName"
+                onChange={handleChange}
+                required>
+            </input>
 
             <label htmlFor="email-input">Email:</label>
-            <input id="email-input" name="email" onChange={handleChange}></input>
+            <input
+                id="email-input"
+                name="email"
+                onChange={handleChange}
+                type="email"
+                required>
+            </input>
 
             <button>Submit</button>
         </form>);

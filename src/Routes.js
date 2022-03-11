@@ -12,16 +12,23 @@ import { useContext } from "react";
 
 /**Routes component -- handles rendering for site based on url
  * 
- * props: None
+ * props:
+ *    - signup : parent function to register new user in API
+ *    - login : parent function sign in user in API
+ *    - editProfile : parent function to edit current user info in API
  * 
  * state: none
+ * 
+ * context: 
+ *    - currentUser : a user object
+ *      ex. { username, firstName, lastName, isAdmin, jobs }
+ *    where jobs is { id, title, companyHandle, companyName, state }
  * 
  * App -> Routes -> {CompaniesDataFetcher, JobsDataFetcher, HomePage, Company Detail}
  */
 function Routes({ signup, login, editProfile }) {
 
    const { currentUser } = useContext(UserContext);
-   console.log("ROUTES CURRENT USER", currentUser);
 
    return (
       <Switch>

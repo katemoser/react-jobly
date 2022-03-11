@@ -10,13 +10,15 @@ import { Link } from "react-router-dom";
  * 
  * state: none
  * 
- * context: User object with details
+ * context:
+ * - currentUser : a user object
+ *      ex. { username, firstName, lastName, isAdmin, jobs }
+ *    where jobs is { id, title, companyHandle, companyName, state }
  *
  * App -> Routes -> HomePage - - - NLI - > {LogInForm, SignUpForm}
  */
  function HomePage(){
 
-    console.log("HOMEPAGE RENDERED")
     const { currentUser } = useContext(UserContext);
 
      return (

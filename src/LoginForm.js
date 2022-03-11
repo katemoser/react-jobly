@@ -13,11 +13,11 @@ import { Redirect } from "react-router-dom";
  * App -> Routes -> LoginForm
  */
 function LoginForm({ handleLogin }) {
-    // TODO: Consider not putting quotes for these keys
 
-    console.log("LOGIN FORM I RENDERED");
-
-    const initialData = {"username": "", "password": ""}
+    const initialData = {
+        username: "", 
+        password: "",
+    }
 
     const [formData, setFormData] = useState(initialData);
     const [formSubmitted, setFormSubmitted] = useState(false);
@@ -33,7 +33,6 @@ function LoginForm({ handleLogin }) {
         });
     }
 
-    // TODO: Consider awaiting handleLogin to deal with error here for incorrect login info
     /** Calls parent component function with input data */
     async function handleSubmit(evt) {
         evt.preventDefault();
@@ -49,9 +48,22 @@ function LoginForm({ handleLogin }) {
     return (
         <form onSubmit={handleSubmit}>
             <label htmlFor="username-input">Username</label>
-            <input id="username-input" name="username" onChange={handleChange}></input>
+            <input 
+                id="username-input" 
+                name="username" 
+                onChange={handleChange} 
+                required>
+            </input>
+
             <label htmlFor="password-input">Password</label>
-            <input id="password-input" name="password" onChange={handleChange}></input>
+            <input 
+                id="password-input" 
+                name="password" 
+                onChange={handleChange} 
+                type="password" 
+                required>
+            </input>
+            
             <button>Submit</button>
         </form>);
 }
