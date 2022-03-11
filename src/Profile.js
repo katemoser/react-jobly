@@ -1,3 +1,5 @@
+import EditProfileForm from "./EditProfileForm";
+
 /** Profile component, which displays edit profile form for a logged-in user
  * 
  * Props:
@@ -7,8 +9,8 @@
  * 
  * App -> Routes -> Profile (WILL RENDER PROFILEEDIT FORM)
  */
- function Profile() {
-    return (<p>PROFILE PAGE</p>);
+ function Profile({handleEditProfile}) {
+    return <EditProfileForm handleSaveChanges={handleEditProfile}/>;
 }
 
 export default Profile;

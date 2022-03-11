@@ -79,17 +79,19 @@ function App() {
     setIsLoggedIn(true);
   }
 
+  /** TODO: DOESNT EXIST YET */
+  async function editProfile(editProfileFormData) {
+    console.log("EDIT PROFILE IN APP. formData:", editProfileFormData);
+    const user = await JoblyApi.updateProfile(currentUser.username, editProfileFormData);
+    setCurrentUser(user);
+  }
+
   /** Logs out user */
   async function logout() {
     console.log("LOGOUT FUNCTION IN APP");
     await JoblyApi.logOutUser();
     localStorage.removeItem("token");
     setIsLoggedIn(false);
-  }
-
-  /** TODO: DOESNT EXIST YET */
-  function editProfile() {
-    console.log("EDIT PROFILE IN APP");
   }
 
   console.log("CURRENT USER =", currentUser);

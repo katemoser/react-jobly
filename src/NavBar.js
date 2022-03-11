@@ -34,9 +34,8 @@ function NavBar({ logout }) {
                     <NavLink className="NavLink" exact to="/jobs" >Jobs</NavLink>
                     <NavLink className="NavLink" exact to="/profile" >Profile</NavLink>
 
-                    <NavLink className="NavLink" exact to="/" onClick={logout}>Log Out</NavLink>
+                    <NavLink className="NavLink" exact to="/" onClick={logout}>Log Out {currentUser.username}</NavLink>
                 </div>}
-
             {!currentUser &&
                 <div>
                     <NavLink className="NavLink" exact to="/signup" >Sign Up</NavLink>
