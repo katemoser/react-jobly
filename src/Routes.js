@@ -21,16 +21,20 @@ import { useContext } from "react";
 function Routes({ signup, login, editProfile }) {
 
    const { currentUser } = useContext(UserContext);
-   console.log("ROUTES CURRENT USER",currentUser);
+   console.log("ROUTES CURRENT USER", currentUser);
 
    return (
       <Switch>
          <Route exact path="/login">
-            <LoginForm handleLogin={login} />
+            {currentUser ?
+               <Redirect to="/" /> :
+               <LoginForm handleLogin={login} />}
          </Route>
 
          <Route exact path="/signup">
-            <SignupForm handleSignup={signup} />
+            {currentUser ?
+               <Redirect to="/" /> :
+               <SignupForm handleSignup={signup} />}
          </Route>
 
          <Route exact path="/profile">
@@ -61,7 +65,7 @@ function Routes({ signup, login, editProfile }) {
          <Route exact path="/">
             <HomePage />
          </Route>
-         
+
          <Redirect to="/" />
       </Switch>
    )

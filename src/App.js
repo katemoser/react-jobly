@@ -18,34 +18,34 @@ import UserContext from "./userContext";
  *      ex. { username, firstName, lastName, isAdmin, jobs }
  *    where jobs is { id, title, companyHandle, companyName, state }
  * 
- *  - token: a JWT token from API
+ *  - isLoggedIn: boolean
  * 
  * App -> {NavBar, Routes}
  */
 function App() {
-  const [currentUser, setCurrentUser] = useState(null);
-
   let initialToken = null;
-
-  console.log("LOCAL STORAGE", localStorage.getItem("token"));
-  console.log("API TOKEN", JoblyApi.token);
+  let isRemembered = false;
 
   if(localStorage.getItem("token")){
     initialToken = localStorage.getItem("token");
-    JoblyApi.token = initialToken
+    isRemembered = true;
   }
 
-  const [token, setToken] = useState(initialToken);
+  JoblyApi.token = initialToken // null or token stored in local storage
 
 
-  console.log(`APP: currentUser: ${currentUser?.username}, token ${token}`);
+  const [currentUser, setCurrentUser] = useState(null);
+
+  // console.log("LOCAL STORAGE", localStorage.getItem("token"));
+  // console.log("API TOKEN", JoblyApi.token);
+  
+  const [isLoggedIn, setIsLoggedIn] = useState(isRemembered);
+
+  console.log(`APP: currentUser: ${currentUser?.username}, token ${JoblyApi.token}`);
 
   /** Updates current user based on token */
   useEffect(function fetchUserWhenTokenChanges() {
-    console.log("APP EFFECT TOKEN", token)
-    if (token !== null) {
-      console.log("You shouldn't be here!", token);
-
+    if (isLoggedIn) {
       const decodedToken = jwt_decode(JoblyApi.token);
       
       const username = decodedToken.username;
@@ -60,14 +60,14 @@ function App() {
     else {
       setCurrentUser(null);
     }
-  }, [token])
+  }, [isLoggedIn])
 
   /** Signs up new user */
   async function signup(signupFormData) {
     console.log("SIGNUP FUNCTION IN APP");
     const token = await JoblyApi.registerNewUser(signupFormData);
     localStorage.setItem("token", token);
-    setToken(token);
+    setIsLoggedIn(true);
   }
 
   // TODO: TRY CATCH FOR INCORRECT PW FOR BETTER UI
@@ -76,14 +76,14 @@ function App() {
     console.log("LOGIN FUNCTION IN APP");
     const token = await JoblyApi.loginUser(loginFormData);
     localStorage.setItem("token", token);
-    setToken(token);
+    setIsLoggedIn(true);
   }
 
   /** Logs out user */
   function logout() {
     console.log("LOGOUT FUNCTION IN APP");
     JoblyApi.logOutUser();
-    setToken(null);
+    setIsLoggedIn(false);
     localStorage.removeItem("token");
   }
 
