@@ -7,6 +7,8 @@ import HomePage from "./HomePage";
 import Profile from "./Profile";
 import SignupForm from "./SignupForm";
 import LoginForm from "./LoginForm";
+import UserContext from "./userContext";
+import { useContext } from "react";
 
 /**Routes component -- handles rendering for site based on url
  * 
@@ -16,33 +18,56 @@ import LoginForm from "./LoginForm";
  * 
  * App -> Routes -> {CompaniesDataFetcher, JobsDataFetcher, HomePage, Company Detail}
  */
-function Routes({ signup, login, editProfile }){
-    return (
-       <Switch>
-           <Route exact path="/login">
-               <LoginForm handleLogin={login}/>
-            </Route>
-				<Route exact path="/signup">
-               <SignupForm handleSignup={signup}/>
-            </Route>
-				<Route exact path="/profile">
-               <Profile handleEditProfile={editProfile}/>
-            </Route>
-           <Route exact path="/companies">
-               <CompaniesDataFetcher />
-            </Route>
-           <Route exact path="/jobs">
-               <JobsDataFetcher />
-            </Route>
-           <Route exact path="/companies/:companyHandle">
-               <CompanyDetail />
-            </Route>
-            <Route exact path="/">
-               <HomePage />
-            </Route>
-            <Redirect to="/" />
-       </Switch>
-    )
+function Routes({ signup, login, editProfile }) {
+
+   const { currentUser } = useContext(UserContext);
+   console.log("CURRENT USER",currentUser);
+
+   return (
+      <Switch>
+         <Route exact path="/login">
+            <LoginForm handleLogin={login} />
+
+         </Route>
+         <Route exact path="/signup">
+            <SignupForm handleSignup={signup} />
+         </Route>
+
+         <Route exact path="/profile">
+            {currentUser ?
+               <Profile handleEditProfile={editProfile} /> :
+               <Redirect to="/login" />}
+         </Route>
+
+         <Route exact path="/companies">
+            {currentUser ?
+               <CompaniesDataFetcher /> :
+               <Redirect to="/login" />}
+
+         </Route>
+
+         <Route exact path="/jobs">
+            {currentUser ?
+
+               <JobsDataFetcher /> :
+               <Redirect to="/login" />}
+
+         </Route>
+
+         <Route exact path="/companies/:companyHandle">
+            {currentUser ?
+               <CompanyDetail /> :
+               <Redirect to="/login" />}
+
+         </Route>
+
+         <Route exact path="/">
+            <HomePage />
+         </Route>
+         
+         <Redirect to="/" />
+      </Switch>
+   )
 
 }
 

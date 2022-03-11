@@ -32,9 +32,9 @@ function LoginForm({ handleLogin }) {
 
     // TODO: Consider awaiting handleLogin to deal with error here for incorrect login info
     /** Calls parent component function with input data */
-    function handleSubmit(evt) {
+    async function handleSubmit(evt) {
         evt.preventDefault();
-        handleLogin(formData);
+        await handleLogin(formData);
         setFormData(initialData);
         setFormSubmitted(true);
     }

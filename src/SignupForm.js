@@ -38,9 +38,9 @@ import { Redirect } from "react-router-dom";
     }
 
     /** Calls parent component function with input data */
-    function handleSubmit(evt) {
+    async function handleSubmit(evt) {
         evt.preventDefault();
-        handleSignup(formData);
+        await handleSignup(formData);
         setFormData(initialData);
         setFormSubmitted(true);
     }

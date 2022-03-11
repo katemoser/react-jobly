@@ -24,7 +24,18 @@ import UserContext from "./userContext";
  */
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
-  const [token, setToken] = useState(null);
+
+  let initialToken = null;
+
+  console.log("LOCAL STORAGE", localStorage.getItem("token"));
+  console.log("API TOKEN", JoblyApi.token);
+
+  if(localStorage.getItem("token")){
+    initialToken = localStorage.getItem("token");
+    JoblyApi.token = initialToken
+  }
+
+  const [token, setToken] = useState(initialToken);
 
 
   console.log(`APP: currentUser: ${currentUser?.username}, token ${token}`);
@@ -52,6 +63,7 @@ function App() {
   async function signup(signupFormData) {
     console.log("SIGNUP FUNCTION IN APP");
     const token = await JoblyApi.registerNewUser(signupFormData);
+    localStorage.setItem("token", token);
     setToken(token);
   }
 
@@ -60,6 +72,7 @@ function App() {
   async function login(loginFormData) {
     console.log("LOGIN FUNCTION IN APP");
     const token = await JoblyApi.loginUser(loginFormData);
+    localStorage.setItem("token", token);
     setToken(token);
   }
 
@@ -68,6 +81,7 @@ function App() {
     console.log("LOGOUT FUNCTION IN APP");
     JoblyApi.logOutUser();
     setToken(null);
+    localStorage.setItem("token", null);
   }
 
   /** TODO: DOESNT EXIST YET */
