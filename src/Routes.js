@@ -51,7 +51,6 @@ function Routes({ signup, login, editProfile }) {
 
          <Route exact path="/jobs">
             {currentUser ?
-
                <JobsDataFetcher /> :
                <Redirect to="/login" />}
          </Route>

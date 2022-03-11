@@ -33,7 +33,7 @@ function App() {
 
   JoblyApi.token = initialToken // null or token stored in local storage
 
-
+  
   const [currentUser, setCurrentUser] = useState(null);
 
   // console.log("LOCAL STORAGE", localStorage.getItem("token"));
@@ -80,11 +80,11 @@ function App() {
   }
 
   /** Logs out user */
-  function logout() {
+  async function logout() {
     console.log("LOGOUT FUNCTION IN APP");
-    JoblyApi.logOutUser();
-    setIsLoggedIn(false);
+    await JoblyApi.logOutUser();
     localStorage.removeItem("token");
+    setIsLoggedIn(false);
   }
 
   /** TODO: DOESNT EXIST YET */
