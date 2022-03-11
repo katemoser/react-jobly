@@ -22,10 +22,10 @@ function Routes({ signup, login, editProfile }){
            <Route exact path="/login">
                <LoginForm handleLogin={login}/>
             </Route>
-						<Route exact path="/signup">
+				<Route exact path="/signup">
                <SignupForm handleSignup={signup}/>
             </Route>
-						<Route exact path="/profile">
+				<Route exact path="/profile">
                <Profile handleEditProfile={editProfile}/>
             </Route>
            <Route exact path="/companies">

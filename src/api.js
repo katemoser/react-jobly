@@ -14,9 +14,11 @@ class JoblyApi {
   // Remember, the backend needs to be authorized with a token
   // We're providing a token you can use to interact with the backend API
   // DON'T MODIFY THIS TOKEN
-  static token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +
-    "SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0." +
-    "FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc";
+  static token = null;
+
+  // "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +
+  //   "SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0." +
+  //   "FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc"
 
   static async request(endpoint, data = {}, method = "get") {
     console.debug("API Call:", endpoint, data, method);
@@ -80,11 +82,11 @@ class JoblyApi {
     return res.jobs;
   }
 
-  /**Get user info 
+  /** Get user info 
    * 
    * input: username
    * 
-   * returns  user information like { username, firstName, lastName, isAdmin, jobs }
+   * returns user information like { username, firstName, lastName, isAdmin, jobs }
    *   where jobs is { id, title, companyHandle, companyName, state }
    */
    static async getUser(username){
@@ -92,9 +94,9 @@ class JoblyApi {
     return res.user;
   } 
 
-  /**Get token from API with valid username/password combo
+  /** Get token from API with valid username/password combo
    * 
-   * input: {username, password}
+   * input: credentials is an object like {username, password}
    * 
    * returns token (string)
    */
@@ -105,11 +107,13 @@ class JoblyApi {
     return res.token;
   } 
 
-  /**Register new user with valid user info 
+  /** Register new user with valid user info 
    * 
-   * input: {username, password, firstName, lastName, email}
+   * input: userInfo is an object like {username, password, firstName, lastName, email}
    * 
    * set static token to returned token (string)
+   * 
+   * returns token from API
    */
    static async registerNewUser(userInfo){
     const res = await this.request('auth/register/', userInfo, 'post');
@@ -118,7 +122,7 @@ class JoblyApi {
     return res.token;
   } 
 
-  /**Edit profile information
+  /** Edit profile information
    * 
    * input: username, newUserInfo (obj)
    *  newUserInfo can include: { firstName, lastName, password, email }
@@ -130,7 +134,15 @@ class JoblyApi {
     return res.user;
   } 
 
-  
+  /** Log Out User by setting JoblyApi.token to null
+   * 
+   * input: none
+   * 
+   * returns none
+   */
+   static logOutUser(){
+    JoblyApi.token = null;
+  } 
 
 
 }

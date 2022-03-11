@@ -5,43 +5,46 @@ import { useContext } from "react";
 import UserContext from "./userContext";
 
 /**
- * NavBar for our site with links to homepage, companies, jobs
+ * NavBar for our site with links to homepage, companies, jobs, profile, 
+ *  and sign out if you are logged in
  * 
- * props: None
+ *  If you are logged out, then it will display links for homepage, signup, and login
+ *  
+ * 
+ * props: logout function from parents
  * 
  * State: none
  * 
- * App -> NavBar -  -  -  > {homepage, companies, jobs}
+ * Context: currentUser object from App
+ * 
+ * App -> NavBar -  - LI -  > {homepage, companies, jobs, profile, logout}
+ * App -> NavBar -  - NLI -  > {homepage, signup, login}
  * 
  */
-function NavBar() {
+function NavBar({ logout }) {
 
     const { currentUser } = useContext(UserContext);
 
-    if (currentUser) {
+    return (
+        <nav className="Jobly-NavBar">
+            <NavLink className="brand" exact to="/" >Jobly</NavLink>
+            {currentUser &&
+                <div>
+                    <NavLink className="NavLink" exact to="/companies" >Companies</NavLink>
+                    <NavLink className="NavLink" exact to="/jobs" >Jobs</NavLink>
+                    <NavLink className="NavLink" exact to="/profile" >Profile</NavLink>
 
-        return (
-            <nav className="Jobly-NavBar">
-                <NavLink className="Brand" exact to="/" >Jobly</NavLink>
+                    <NavLink className="NavLink" exact to="/" onClick={logout}>Log Out</NavLink>
+                </div>}
 
-                <NavLink className="NavLink" exact to="/companies" >Companies</NavLink>
-                <NavLink className="NavLink" exact to="/jobs" >Jobs</NavLink>
-                <NavLink className="NavLink" exact to="/profile" >Profile</NavLink>
-
-                <NavLink className="NavLink" exact to="/" >Log Out</NavLink>
-            </nav>
-        )
-    }
-    else {
-        return (
-            <nav className="Jobly-NavBar">
-
-                <NavLink className="Brand" exact to="/" >Jobly</NavLink>
-                <NavLink className="NavLink" exact to="/signup" >Sign Up</NavLink>
-                <NavLink className="NavLink" exact to="/login" >Login</NavLink>
-            </nav>
-        )
-    }
+            {!currentUser &&
+                <div>
+                    <NavLink className="NavLink" exact to="/signup" >Sign Up</NavLink>
+                    <NavLink className="NavLink" exact to="/login" >Login</NavLink>
+                </div>
+            }
+        </nav>
+    )
 }
 
 export default NavBar;

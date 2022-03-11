@@ -1,12 +1,17 @@
 import {useState} from "react";
-/** Signup component, which displays signup form for non-logged-in user
+import { Redirect } from "react-router-dom";
+
+/** SignupForm for non-logged-in user
  * 
  * Props:
  *  Signup function : Calls function in App component to signup a user via the API
  * 
- * State: None
+ * State:
+ *  - formData (controlled component)
+ *  - formSubmitted : a boolean that is toggled when form is submitted
  * 
- * App -> Routes -> Signup
+ * 
+ * App -> Routes -> SignupForm
  */
  function SignupForm({handleSignup}) {
 
@@ -19,6 +24,7 @@ import {useState} from "react";
 }
 
     const [formData, setFormData] = useState(initialData);
+    const [formSubmitted, setFormSubmitted] = useState(false);
 
     /** Updates state with form input value */
     function handleChange(evt){
@@ -36,8 +42,13 @@ import {useState} from "react";
         evt.preventDefault();
         handleSignup(formData);
         setFormData(initialData);
+        setFormSubmitted(true);
     }
 
+    if (formSubmitted) {
+        return <Redirect push to="/" />
+    }
+    // TODO: type input for password and email and REQUIRED attribute!!
     return (
         <form onSubmit={handleSubmit}>
             <label htmlFor="username-input">Username:</label>
