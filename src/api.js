@@ -11,9 +11,6 @@ const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001/";
  */
 
 class JoblyApi {
-  // Remember, the backend needs to be authorized with a token
-  // We're providing a token you can use to interact with the backend API
-  // DON'T MODIFY THIS TOKEN
   static token = null;
 
   static async request(endpoint, data = {}, method = "get") {
@@ -46,7 +43,6 @@ class JoblyApi {
    * Returns: { handle, name, description, numEmployees, logoUrl, jobs }
    * where jobs is [{ id, title, salary, equity }, ...]
   */
-
   static async getCompany(handle) {
     const res = await this.request(`companies/${handle}`);
     return res.company;
@@ -59,7 +55,6 @@ class JoblyApi {
    * 
    * Returns: [ { handle, name, description, numEmployees, logoUrl }, ...]
    */
-
   static async getCompanies(params = {}) {
     const res = await this.request(`companies/`, params);
     return res.companies;
@@ -72,7 +67,6 @@ class JoblyApi {
    * 
    * Returns: [ { id, title, salary, equity, companyHandle, companyName }, ...]
   */
-  
   static async getJobs(params = {}) {
     const res = await this.request(`jobs/`, params);
     return res.jobs;

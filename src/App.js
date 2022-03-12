@@ -6,6 +6,7 @@ import JoblyApi from "./api.js";
 import { useState, useEffect } from "react";
 import jwt_decode from "jwt-decode";
 import UserContext from "./userContext";
+import ErrorMessage from "./ErrorMessage";
 
 
 /**
@@ -26,22 +27,22 @@ function App() {
   let initialToken = null;
   let isRemembered = false;
 
-  if(localStorage.getItem("token")){
+  if (localStorage.getItem("token")) {
     initialToken = localStorage.getItem("token");
     isRemembered = true;
   }
 
   JoblyApi.token = initialToken // null or token stored in local storage
-  
+
   const [currentUser, setCurrentUser] = useState(null);
-  
+
   const [isLoggedIn, setIsLoggedIn] = useState(isRemembered);
 
   /** Updates current user based on token */
   useEffect(function fetchUserWhenTokenChanges() {
     if (isLoggedIn) {
       const decodedToken = jwt_decode(JoblyApi.token);
-      
+
       const username = decodedToken.username;
 
       async function fetchUser(username) {
@@ -57,23 +58,35 @@ function App() {
 
   /** Signs up new user */
   async function signup(signupFormData) {
-    const token = await JoblyApi.registerNewUser(signupFormData);
-    localStorage.setItem("token", token);
-    setIsLoggedIn(true);
+    try{
+      const token = await JoblyApi.registerNewUser(signupFormData);
+      localStorage.setItem("token", token);
+      setIsLoggedIn(true);
+    } catch(err){
+      <ErrorMessage error={err}/>
+    }
   }
 
   // TODO: TRY CATCH FOR INCORRECT PW FOR BETTER UI
   /** Logs in new user */
   async function login(loginFormData) {
-    const token = await JoblyApi.loginUser(loginFormData);
-    localStorage.setItem("token", token);
-    setIsLoggedIn(true);
+    try {
+      const token = await JoblyApi.loginUser(loginFormData);
+      localStorage.setItem("token", token);
+      setIsLoggedIn(true);
+    } catch (err) {
+      <ErrorMessage error={err}/>
+    }
   }
 
   /** Edits user profile */
   async function editProfile(editProfileFormData) {
-    const user = await JoblyApi.updateProfile(currentUser.username, editProfileFormData);
-    setCurrentUser(user);
+    try {
+      const user = await JoblyApi.updateProfile(currentUser.username, editProfileFormData);
+      setCurrentUser(user);
+    } catch(err){
+      <ErrorMessage error={err} />
+    }
   }
 
   /** Logs out user */
@@ -87,7 +100,7 @@ function App() {
     <div className="App">
       <UserContext.Provider value={{ currentUser }} >
         <BrowserRouter >
-          <NavBar logout={logout}/>
+          <NavBar logout={logout} />
           <Routes signup={signup} login={login} editProfile={editProfile} />
         </BrowserRouter>
       </UserContext.Provider>
