@@ -27,8 +27,12 @@ import { Link } from "react-router-dom";
              <h3>All the jobs in one, convenient place.</h3>
              {!currentUser && 
              <div>
-                <Link to="/login">Login</Link>
-                <Link to="/signup">Sign Up!</Link>
+                <a href="/login">
+                    <button>Login</button>
+                </a>
+                <a href="/signup">
+                    <button>Sign Up!</button>
+                </a>
              </div>
              }
              

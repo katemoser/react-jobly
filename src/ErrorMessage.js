@@ -1,7 +1,7 @@
 import {Link} from "react-router-dom";
 
-function ErrorMessage(error){
-    console.log("ERROR:", error);
+function ErrorMessage({error}){
+    console.log("ERRORMESSAGE:", error);
     return(
         <div>
             <h1>Sorry, that didn't work...</h1>

@@ -27,6 +27,7 @@ class JoblyApi {
     } catch (err) {
       console.error("API Error:", err.response);
       let message = err.response.data.error.message;
+      console.log("message:", message);
       throw Array.isArray(message) ? message : [message];
     }
   }
@@ -91,9 +92,9 @@ class JoblyApi {
    * returns token (string)
    */
   static async loginUser(credentials){
-    const res = await this.request('auth/token/', credentials, 'post');
-    JoblyApi.token = res.token;
-    return res.token;
+      const res = await this.request('auth/token/', credentials, 'post');
+      JoblyApi.token = res.token;
+      return res.token;
   } 
 
   /** Register new user with valid user info 

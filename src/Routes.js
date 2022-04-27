@@ -13,6 +13,7 @@ import { useContext } from "react";
 /**Routes component -- handles rendering for site based on url
  * 
  * props:
+ *    - errors: an array of errors;
  *    - signup : parent function to register new user in API
  *    - login : parent function sign in user in API
  *    - editProfile : parent function to edit current user info in API

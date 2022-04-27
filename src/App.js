@@ -26,6 +26,7 @@ import ErrorMessage from "./ErrorMessage";
 function App() {
   let initialToken = null;
   let isRemembered = false;
+  let errors = [];
 
   if (localStorage.getItem("token")) {
     initialToken = localStorage.getItem("token");
@@ -58,12 +59,12 @@ function App() {
 
   /** Signs up new user */
   async function signup(signupFormData) {
-    try{
+    try {
       const token = await JoblyApi.registerNewUser(signupFormData);
       localStorage.setItem("token", token);
       setIsLoggedIn(true);
-    } catch(err){
-      <ErrorMessage error={err}/>
+    } catch (err) {
+      errors = err;
     }
   }
 
@@ -75,7 +76,9 @@ function App() {
       localStorage.setItem("token", token);
       setIsLoggedIn(true);
     } catch (err) {
-      <ErrorMessage error={err}/>
+      console.log("ERROR IN LOGIN IN APP:", err);
+      errors = err;
+
     }
   }
 
@@ -84,8 +87,8 @@ function App() {
     try {
       const user = await JoblyApi.updateProfile(currentUser.username, editProfileFormData);
       setCurrentUser(user);
-    } catch(err){
-      <ErrorMessage error={err} />
+    } catch (err) {
+      errors = err;
     }
   }
 
@@ -101,7 +104,10 @@ function App() {
       <UserContext.Provider value={{ currentUser }} >
         <BrowserRouter >
           <NavBar logout={logout} />
-          <Routes signup={signup} login={login} editProfile={editProfile} />
+          <Routes
+            signup={signup}
+            login={login}
+            editProfile={editProfile} />
         </BrowserRouter>
       </UserContext.Provider>
     </div>
