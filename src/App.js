@@ -6,6 +6,7 @@ import JoblyApi from "./api.js";
 import { useState, useEffect } from "react";
 import jwt_decode from "jwt-decode";
 import UserContext from "./userContext";
+import 'bootswatch/dist/minty/bootstrap.min.css';
 import ErrorMessage from "./ErrorMessage";
 
 

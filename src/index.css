@@ -6,7 +6,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  background-image: url("https://wallpaperaccess.com/full/1101275.jpg");
+  background-image: url("/src/marten-bjork-6dW3xyQvcYE-unsplash.jpg");
+  background-size:cover;
 
 }
 
