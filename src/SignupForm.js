@@ -10,6 +10,7 @@ import {
   Col,
   Container,
   FormGroup,
+  Alert,
 } from "reactstrap";
 
 /** SignupForm for non-logged-in user
@@ -19,7 +20,8 @@ import {
  *
  * State:
  *  - formData (controlled component)
- *  - formSubmitted : a boolean that is toggled when form is submitted
+ *  - formErrors : array of error messages displayed after form suibmission if
+ *    not successful
  *
  * App -> Routes -> SignupForm
  */
@@ -33,7 +35,8 @@ function SignupForm({ handleSignup }) {
   };
 
   const [formData, setFormData] = useState(initialData);
-  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [formErrors, setFormErrors] = useState([])
+  // const [formSubmitted, setFormSubmitted] = useState(false);
 
   /** Updates state with form input value */
   function handleChange(evt) {
@@ -49,14 +52,17 @@ function SignupForm({ handleSignup }) {
   /** Calls parent component function with input data */
   async function handleSubmit(evt) {
     evt.preventDefault();
-    await handleSignup(formData);
-    setFormData(initialData);
-    setFormSubmitted(true);
+    try{
+      await handleSignup(formData);
+      return <Redirect push to="/" />;
+      // setFormSubmitted(true);
+    } catch(err){
+      setFormErrors(err);
+    }
   }
 
-  if (formSubmitted) {
-    return <Redirect push to="/" />;
-  }
+  // if (formSubmitted) {
+  // }
 
   return (
     <Container className="jobly-form">
@@ -132,6 +138,14 @@ function SignupForm({ handleSignup }) {
             </Button>
           </Col>
         </Row>
+
+        {formErrors.length
+          ? <Alert >
+              {formErrors}
+            </Alert>
+          : null
+        }
+
       </Form>
     </Container>
   );
