@@ -8,7 +8,7 @@ import {
   Row,
   Col,
   Container,
-  FormGroup,
+  Alert,
 } from "reactstrap";
 
 /** LoginForm component, which displays login form for non-logged-in user
@@ -29,7 +29,8 @@ function LoginForm({ handleLogin }) {
   };
 
   const [formData, setFormData] = useState(initialData);
-  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [formErrors, setFormErrors] = useState([])
+  // const [formSubmitted, setFormSubmitted] = useState(false);
 
   /** Updates state with form input value */
   function handleChange(evt) {
@@ -45,14 +46,20 @@ function LoginForm({ handleLogin }) {
   /** Calls parent component function with input data */
   async function handleSubmit(evt) {
     evt.preventDefault();
-    await handleLogin(formData);
-    setFormData(initialData);
-    setFormSubmitted(true);
+    try{
+      await handleLogin(formData);
+      return <Redirect push to="companies" />
+    } catch (err){
+      // console.log("Caught an error!", err)
+      setFormErrors(err);
+    }
+    // setFormData(initialData);
+    // setFormSubmitted(true);
   }
 
-  if (formSubmitted) {
-    return <Redirect push to="/" />;
-  }
+  // if (formSubmitted) {
+  //   return <Redirect push to="/" />;
+  // }
 
   return (
     <Container className="jobly-form">
@@ -79,6 +86,13 @@ function LoginForm({ handleLogin }) {
             ></Input>
           </Col>
         </Row>
+
+        {formErrors.length
+          ? <Alert color="danger">
+              {formErrors}
+            </Alert>
+          : null
+        }
 
         <Button color="primary" outline>Submit</Button>
       </Form>
