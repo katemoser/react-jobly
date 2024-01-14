@@ -11,6 +11,7 @@ import {
   Col,
   Container,
   FormGroup,
+  Alert,
 } from "reactstrap";
 
 /** EditProfileForm component, which displays form to edit user info for logged-in user
@@ -20,7 +21,7 @@ import {
  *
  * State:
  *  - formData (controlled component)
- *  - formSubmitted : a boolean that is toggled when form is submitted
+ *  - formErrors : Array of errors if form submission is unsuccessful
  *
  * App -> Routes -> Profile -> EditProfileForm
  */
@@ -38,7 +39,7 @@ function EditProfileForm({ handleSaveChanges }) {
   };
 
   const [formData, setFormData] = useState(initialData);
-  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [formErrors, setFormErrors] = useState([]);
 
   /** Updates state with form input value */
   function handleChange(evt) {
@@ -54,20 +55,22 @@ function EditProfileForm({ handleSaveChanges }) {
   /** Upon submit, calls parent function to update current user info */
   async function handleSubmit(evt) {
     evt.preventDefault();
-    await handleSaveChanges({
-      firstName: formData.firstName,
-      lastName: formData.lastName,
-      email: formData.email,
-    });
-    setFormData(formData);
-    setFormSubmitted(true);
+    try {
+      await handleSaveChanges({
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+      });
+
+      // TODO: redirect to profile page, once created
+      return <Redirect push to="/companies" />;
+
+    } catch (err) {
+      console.log("ERROR IN FORM");
+      setFormErrors(err);
+    }
   }
 
-  if (formSubmitted) {
-    return <Redirect push to="/" />;
-  }
-
-  // TODO: Add required attributes for inputs
   return (
     <Container className="jobly-form">
       <Form onSubmit={handleSubmit}>
@@ -86,6 +89,7 @@ function EditProfileForm({ handleSaveChanges }) {
             <FormGroup>
               <Label htmlFor="firstName-input">First Name</Label>
               <Input
+                required
                 id="firstName-input"
                 name="firstName"
                 onChange={handleChange}
@@ -97,6 +101,7 @@ function EditProfileForm({ handleSaveChanges }) {
             <FormGroup>
               <Label htmlFor="lastName-input">Last Name</Label>
               <Input
+                required
                 id="lastName-input"
                 name="lastName"
                 onChange={handleChange}
@@ -110,6 +115,7 @@ function EditProfileForm({ handleSaveChanges }) {
             <FormGroup>
               <Label htmlFor="email-input">Email</Label>
               <Input
+                required
                 id="email-input"
                 name="email"
                 type="email"
@@ -119,6 +125,14 @@ function EditProfileForm({ handleSaveChanges }) {
             </FormGroup>
           </Col>
         </Row>
+
+        {formErrors.length
+          ? <Alert color="danger">
+              {formErrors}
+            </Alert>
+          : null
+        }
+
         <Button>Submit</Button>
       </Form>
     </Container>
