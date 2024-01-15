@@ -1,16 +1,17 @@
 import { BrowserRouter } from "react-router-dom";
+import { useState, useEffect } from "react";
+import 'bootswatch/dist/minty/bootstrap.min.css';
+import decode from "jwt-decode";
+
 import './App.css';
 import NavBar from "./NavBar";
-import Routes from "./Routes";
+import RoutesList from "./RoutesList.js";
 import JoblyApi from "./api.js";
-import { useState, useEffect } from "react";
-import decode from "jwt-decode";
 import UserContext from "./userContext";
-import 'bootswatch/dist/minty/bootstrap.min.css';
 import Loading from "./Loading.js";
-// import ErrorMessage from "./ErrorMessage";
 
 
+// TODO: make globally accessible const for local storage token key name
 /**
  * Jobly App -- A site for searching for job openings!
  *
@@ -102,7 +103,7 @@ function App() {
       <UserContext.Provider value={{ currentUser: currentUser.userData }} >
         <BrowserRouter >
           <NavBar logout={logout} />
-          <Routes
+          <RoutesList
             signup={signup}
             login={login}
             editProfile={editProfile} />
