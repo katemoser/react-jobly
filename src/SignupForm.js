@@ -1,6 +1,6 @@
 import "./SignupForm.css";
 import { useState } from "react";
-import { Redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Form,
   Input,
@@ -26,6 +26,8 @@ import {
  * App -> Routes -> SignupForm
  */
 function SignupForm({ handleSignup }) {
+
+  // const navigate = useNavigate();
   const initialData = {
     username: "",
     password: "",
@@ -54,7 +56,7 @@ function SignupForm({ handleSignup }) {
     evt.preventDefault();
     try{
       await handleSignup(formData);
-      return <Redirect push to="/" />;
+      // navigate("/");
       // setFormSubmitted(true);
     } catch(err){
       setFormErrors(err);

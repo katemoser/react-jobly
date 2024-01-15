@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import UserContext from "./userContext";
 import {
@@ -26,6 +26,8 @@ import {
  * App -> Routes -> Profile -> EditProfileForm
  */
 function EditProfileForm({ handleSaveChanges }) {
+
+  const navigate = useNavigate();
   //get the user from context and set to initial data
   const { currentUser } = useContext(UserContext);
   console.log(currentUser);
@@ -63,10 +65,10 @@ function EditProfileForm({ handleSaveChanges }) {
       });
 
       // TODO: redirect to profile page, once created
-      return <Redirect push to="/companies" />;
+      navigate("/companies")
 
     } catch (err) {
-      console.log("ERROR IN FORM");
+      console.log("ERROR IN FORM", err);
       setFormErrors(err);
     }
   }

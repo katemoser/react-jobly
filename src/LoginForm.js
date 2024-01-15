@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Form,
   Input,
@@ -23,6 +23,8 @@ import {
  * App -> Routes -> LoginForm
  */
 function LoginForm({ handleLogin }) {
+
+  // const navigate = useNavigate();
   const initialData = {
     username: "",
     password: "",
@@ -47,7 +49,8 @@ function LoginForm({ handleLogin }) {
     evt.preventDefault();
     try{
       await handleLogin(formData);
-      return <Redirect push to="companies" />
+      // return <Navigate to="/companies" />
+      // navigate('/companies')
     } catch (err){
       // console.log("Caught an error!", err)
       setFormErrors(err);
