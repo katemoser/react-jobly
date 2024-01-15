@@ -1,44 +1,63 @@
 import { useEffect, useState } from "react";
-import {useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 import JoblyApi from "./api";
 import JobList from "./JobList";
 import Loading from "./Loading";
 import "./CompanyDetail.css";
+import ErrorMessage from "./ErrorMessage";
+import { Alert } from "reactstrap";
 
 /**
  * Company detail page with company description and list of jobs
- * 
+ *
  * props: none
- * 
+ *
  * state: company
  *  ex. { handle, name, description, numEmployees, logoUrl, jobs }
 *       where jobs is [{ id, title, salary, equity }, ...]
- * 
+ *
  * Router -> CompanyDetail -> Joblist
  */
- function CompanyDetail(){
+function CompanyDetail() {
     const [company, setCompany] = useState(null);
-    const params = useParams();
+    const [errors, setErrors] = useState([]);
 
-    console.log("Company Detail: ", company, params);
+    const { handle } = useParams();
+
+    console.log("Company Detail: ", company, handle);
 
     /** Fetches data for specific company using handle and sets it to state */
-    useEffect(function fetchCompanyOnMount(){
-        async function fetchcompanyInfo(){
-            setCompany(await JoblyApi.getCompany(params.companyHandle));
+    useEffect(function fetchCompany() {
+        async function fetchcompanyInfo() {
+            try {
+                const company = await JoblyApi.getCompany(handle);
+                setCompany(company);
+            } catch (err) {
+                setErrors(err);
+            }
         }
         fetchcompanyInfo();
-    }, [params.companyHandle]);
+    }, [handle]);
 
-    if(!company) return <Loading />
+    if (!company && !errors.length) return <Loading />;
 
+    // TODO: refactor error below to return a whole 404 component
     return (
-        <div className="Jobly-CompanyDetail">
-            <h1>{company.name}</h1>
-            <h2>{company.description}</h2>
-            <JobList jobs={company.jobs} />
+        <div>
+            {errors.length
+                ?
+                <Alert color="danger">
+                    {errors}
+                </Alert>
+                :
+                <div className="Jobly-CompanyDetail">
+                    <h1>{company.name}</h1>
+                    <h2>{company.description}</h2>
+                    <JobList jobs={company.jobs} />
+                </div>
+            }
         </div>
-    )
+    );
 
 }
 
