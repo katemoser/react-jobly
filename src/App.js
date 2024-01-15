@@ -17,41 +17,24 @@ import Loading from "./Loading.js";
  *  props: none
  *
  *  state:
- *  - currentUser : a user object
- *      ex. { username, firstName, lastName, isAdmin, jobs }
- *    where jobs is { id, title, companyHandle, companyName, state }
+ *  - currentUser : a user object and loaded flag like:
+ *       {
+ *          userdata: { username, firstName, lastName, isAdmin},
+ *          infoLoaded: true }
  *
- *  - isLoggedIn: boolean
+ *  - token : a jwt token string if user is logged in, otherwise null
  *
  * App -> {NavBar, Routes}
  */
 function App() {
-  // let initialToken = null;
-  // let isRemembered = false;
-  // // let errors = [];
-
-  // // if (localStorage.getItem("token")) {
-  // //   initialToken = localStorage.getItem("token");
-  // //   // isRemembered = true;
-  // // }
-
-  // JoblyApi.token = initialToken; // null or token stored in local storage
-
-  // const [currentUser, setCurrentUser] = useState(null);
   const [currentUser, setCurrentUser] = useState({
     userData: null,
     infoLoaded: false
   });
-
   const [token, setToken] = useState(localStorage.getItem("token") || null);
-
-  // const [isLoggedIn, setIsLoggedIn] = useState(isRemembered);
 
   /** Updates current user based on token */
   useEffect(function fetchUserWhenTokenChanges() {
-    // if (token) {
-    //   const payload = decode(token);
-    //   const username = payload.username;
 
     /** if token, gets user info from token. otherwise sets to null */
     async function getUser() {
@@ -113,6 +96,7 @@ function App() {
   }
 
   if (!currentUser.infoLoaded) return <Loading />;
+
   return (
     <div className="App">
       <UserContext.Provider value={{ currentUser: currentUser.userData }} >
