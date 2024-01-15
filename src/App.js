@@ -4,105 +4,118 @@ import NavBar from "./NavBar";
 import Routes from "./Routes";
 import JoblyApi from "./api.js";
 import { useState, useEffect } from "react";
-import jwt_decode from "jwt-decode";
+import decode from "jwt-decode";
 import UserContext from "./userContext";
 import 'bootswatch/dist/minty/bootstrap.min.css';
-import ErrorMessage from "./ErrorMessage";
+import Loading from "./Loading.js";
+// import ErrorMessage from "./ErrorMessage";
 
 
 /**
  * Jobly App -- A site for searching for job openings!
- * 
+ *
  *  props: none
- * 
- *  state: 
+ *
+ *  state:
  *  - currentUser : a user object
  *      ex. { username, firstName, lastName, isAdmin, jobs }
  *    where jobs is { id, title, companyHandle, companyName, state }
- * 
+ *
  *  - isLoggedIn: boolean
- * 
+ *
  * App -> {NavBar, Routes}
  */
 function App() {
-  let initialToken = null;
-  let isRemembered = false;
-  let errors = [];
+  // let initialToken = null;
+  // let isRemembered = false;
+  // // let errors = [];
 
-  if (localStorage.getItem("token")) {
-    initialToken = localStorage.getItem("token");
-    isRemembered = true;
-  }
+  // // if (localStorage.getItem("token")) {
+  // //   initialToken = localStorage.getItem("token");
+  // //   // isRemembered = true;
+  // // }
 
-  JoblyApi.token = initialToken // null or token stored in local storage
+  // JoblyApi.token = initialToken; // null or token stored in local storage
 
-  const [currentUser, setCurrentUser] = useState(null);
+  // const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState({
+    userData: null,
+    infoLoaded: false
+  });
 
-  const [isLoggedIn, setIsLoggedIn] = useState(isRemembered);
+  const [token, setToken] = useState(localStorage.getItem("token") || null);
+
+  // const [isLoggedIn, setIsLoggedIn] = useState(isRemembered);
 
   /** Updates current user based on token */
   useEffect(function fetchUserWhenTokenChanges() {
-    if (isLoggedIn) {
-      const decodedToken = jwt_decode(JoblyApi.token);
+    // if (token) {
+    //   const payload = decode(token);
+    //   const username = payload.username;
 
-      const username = decodedToken.username;
+    /** if token, gets user info from token. otherwise sets to null */
+    async function getUser() {
+      if (token) {
+        const payload = decode(token);
+        const username = payload.username;
 
-      async function fetchUser(username) {
+        // Add token to API so it can be used on subsequent requests
+        JoblyApi.token = token
         const userResult = await JoblyApi.getUser(username);
-        setCurrentUser(userResult);
+        setCurrentUser({
+          userData: userResult,
+          infoLoaded: true
+        });
+      } else {
+        setCurrentUser({
+          userData: null,
+          infoLoaded: true
+        });
       }
-      fetchUser(username);
     }
-    else {
-      setCurrentUser(null);
-    }
-  }, [isLoggedIn])
+
+    getUser();
+  }, [token]);
 
   /** Signs up new user */
   async function signup(signupFormData) {
-    try {
-      const token = await JoblyApi.registerNewUser(signupFormData);
-      localStorage.setItem("token", token);
-      setIsLoggedIn(true);
-    } catch (err) {
-      errors = err;
-    }
+    const token = await JoblyApi.registerNewUser(signupFormData);
+    localStorage.setItem("token", token);
+    setToken(token);
   }
 
-  // TODO: TRY CATCH FOR INCORRECT PW FOR BETTER UI
   /** Logs in new user */
   async function login(loginFormData) {
-    try {
-      const token = await JoblyApi.loginUser(loginFormData);
-      localStorage.setItem("token", token);
-      setIsLoggedIn(true);
-    } catch (err) {
-      console.log("ERROR IN LOGIN IN APP:", err);
-      errors = err;
-
-    }
+    const token = await JoblyApi.loginUser(loginFormData);
+    localStorage.setItem("token", token);
+    setToken(token);
   }
 
   /** Edits user profile */
   async function editProfile(editProfileFormData) {
-    try {
-      const user = await JoblyApi.updateProfile(currentUser.username, editProfileFormData);
-      setCurrentUser(user);
-    } catch (err) {
-      errors = err;
-    }
+    console.log("current user:", currentUser);
+    const user = await JoblyApi.updateProfile(
+      currentUser.userData.username,
+      editProfileFormData
+    );
+
+    setCurrentUser({
+      userData: user,
+      infoLoaded: true
+    });
   }
 
   /** Logs out user */
   async function logout() {
     await JoblyApi.logOutUser();
     localStorage.removeItem("token");
-    setIsLoggedIn(false);
+    setToken(null);
   }
 
+  if (!currentUser.infoLoaded) return <Loading />;
   return (
     <div className="App">
-      <UserContext.Provider value={{ currentUser }} >
+      <UserContext.Provider value={{ currentUser: currentUser.userData }} >
         <BrowserRouter >
           <NavBar logout={logout} />
           <Routes
