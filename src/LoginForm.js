@@ -18,7 +18,7 @@ import {
  *
  * State:
  *  - formData (controlled component)
- *  - formSubmitted : a boolean that is toggled when form is submitted
+ *  - formErrors -- array of errors if form isn't filled out correctly
  *
  * App -> Routes -> LoginForm
  */
@@ -30,7 +30,6 @@ function LoginForm({ handleLogin }) {
 
   const [formData, setFormData] = useState(initialData);
   const [formErrors, setFormErrors] = useState([])
-  // const [formSubmitted, setFormSubmitted] = useState(false);
 
   /** Updates state with form input value */
   function handleChange(evt) {
@@ -53,13 +52,7 @@ function LoginForm({ handleLogin }) {
       // console.log("Caught an error!", err)
       setFormErrors(err);
     }
-    // setFormData(initialData);
-    // setFormSubmitted(true);
   }
-
-  // if (formSubmitted) {
-  //   return <Redirect push to="/" />;
-  // }
 
   return (
     <Container className="jobly-form">
