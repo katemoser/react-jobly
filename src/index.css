@@ -6,7 +6,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  background-image: url("/src/marten-bjork-6dW3xyQvcYE-unsplash.jpg");
+  background-image: url("../public/background.jpg");
   background-size:cover;
 
 }

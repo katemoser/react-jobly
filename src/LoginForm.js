@@ -9,7 +9,9 @@ import {
   Col,
   Container,
   Alert,
+  FormGroup,
 } from "reactstrap";
+import "./LoginForm.css"
 
 /** LoginForm component, which displays login form for non-logged-in user
  *
@@ -58,10 +60,11 @@ function LoginForm({ handleLogin }) {
   }
 
   return (
-    <Container className="jobly-form">
+    <Container className="LoginForm card border-primary mb-3">
       <Form onSubmit={handleSubmit}>
-        <Row>
-          <Col md={6}>
+        {/* <Row>
+          <Col md="6" sm="12"> */}
+          <FormGroup>
             <Label htmlFor="username-input">Username</Label>
             <Input
               id="username-input"
@@ -69,9 +72,11 @@ function LoginForm({ handleLogin }) {
               onChange={handleChange}
               required
             ></Input>
-          </Col>
+            </FormGroup>
+          {/* </Col>
 
-          <Col md={6}>
+          <Col md="6" sm="12"> */}
+          <FormGroup>
             <Label htmlFor="password-input">Password</Label>
             <Input
               id="password-input"
@@ -80,8 +85,9 @@ function LoginForm({ handleLogin }) {
               type="password"
               required
             ></Input>
-          </Col>
-        </Row>
+            </FormGroup>
+          {/* </Col>
+        </Row> */}
 
         {formErrors.length
           ? <Alert color="danger">
