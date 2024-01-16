@@ -1,9 +1,4 @@
-.jobly-form{
-    background-color:gainsboro;
-    border-radius: 8px;
+.SignupForm {
     margin: 10%;
-    padding:2em;
-    font-weight: bold;
-    font-size: large;
-    text-align: left;
+    padding: 2em;
 }

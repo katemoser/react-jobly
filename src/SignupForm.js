@@ -1,6 +1,6 @@
 import "./SignupForm.css";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import {
   Form,
   Input,
@@ -38,7 +38,6 @@ function SignupForm({ handleSignup }) {
 
   const [formData, setFormData] = useState(initialData);
   const [formErrors, setFormErrors] = useState([])
-  // const [formSubmitted, setFormSubmitted] = useState(false);
 
   /** Updates state with form input value */
   function handleChange(evt) {
@@ -63,11 +62,8 @@ function SignupForm({ handleSignup }) {
     }
   }
 
-  // if (formSubmitted) {
-  // }
-
   return (
-    <Container className="jobly-form">
+    <Container className="SignupForm card border-primary mb-3">
       <Form onSubmit={handleSubmit}>
         <Row>
           <Col md={6}>
