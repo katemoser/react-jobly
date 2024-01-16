@@ -1,20 +1,27 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import "./NavBar.css";
-import { useContext } from "react";
 import UserContext from "./userContext";
-import { Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, Collapse } from "reactstrap";
+import {
+  Nav,
+  Navbar,
+  NavbarBrand,
+  NavbarToggler,
+  NavItem,
+  Collapse,
+  NavbarText } from "reactstrap";
 
 
 /**
  * NavBar for our site with links to homepage, companies, jobs, profile,
  *  and sign out if you are logged in
  *
- *  If you are logged out, then it will display links for homepage, signup, and login
+ *  If you are logged out, then it will display links for
+ * homepage, signup, and login
  *
  * props: logout function from parents
  *
- * State: none
+ * State: isOpen : boolean, for toggling the hamburger menu on smaller screens
  *
  * Context:
  * - currentUser : a user object
@@ -28,52 +35,68 @@ import { Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, Collapse } from "reac
 function NavBar({ logout }) {
   const { currentUser } = useContext(UserContext);
 
+  const [isOpen, setIsOpen] = useState(false);
+
+  console.log("navbar rendered, isOpen=", isOpen);
+  const toggle = () => setIsOpen(!isOpen);
+
   return (
-    <Navbar color="light" fixed="" expand="md">
-      <NavbarBrand exact to="/">
+    <Navbar color="light" fixed="" expand="sm">
+      <NavbarBrand to="/">
         Jobly
       </NavbarBrand>
-      <NavbarToggler />
-      <Collapse navbar>
-        {currentUser && (
+
+      <NavbarToggler onClick={toggle} />
+      {currentUser && (
+        <Collapse isOpen={isOpen} navbar>
+
           <Nav navbar>
             <NavItem>
-              <NavLink exact to="/companies">
+              <NavLink className="nav-link" to="/companies">
                 Companies
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink exact to="/jobs">
+              <NavLink className="nav-link" to="/jobs">
                 Jobs
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink exact to="/profile">
+              <NavLink className="nav-link" to="/profile">
                 Profile
               </NavLink>
             </NavItem>
-            <NavItem>
-              <NavLink className="NavLink" exact to="/" onClick={logout}>
+          </Nav>
+          <Nav navbar className="ms-auto">
+            <NavItem >
+              <NavbarText className="btn btn-secondary" onClick={logout}>
                 Log Out {currentUser.firstName}
-              </NavLink>
+              </NavbarText>
             </NavItem>
           </Nav>
-        )}
-        {!currentUser && (
-          <Nav navbar>
+        </Collapse>
+
+      )}
+
+      {!currentUser && (
+        <Collapse isOpen={isOpen} navbar>
+
+          <Nav navbar className="ms-auto">
             <NavItem>
-              <NavLink className="NavLink" exact to="/signup">
-                Sign Up
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink className="NavLink" exact to="/login">
+              <NavLink className="nav-link" to="/login">
                 Login
               </NavLink>
             </NavItem>
+            <NavItem>
+              <NavLink className="nav-link" to="/signup">
+                Sign Up
+              </NavLink>
+            </NavItem>
           </Nav>
-        )}
-      </Collapse>
+        </Collapse>
+
+      )}
+
     </Navbar>
   );
 }
