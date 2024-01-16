@@ -1,25 +1,31 @@
 import React from "react";
 import CompanyCard from "./CompanyCard";
-import "./List.css";
+import "./CompanyList.css";
 
-/** CompanyList component shows a list of companies obtained from 
+/** CompanyList component shows a list of companies obtained from
  * CompaniesDataFetcher component
- * 
+ *
  * Props:
  *  companies: a list of company objects
  * ex. [ { handle, name, description, numEmployees, logoUrl }, ...]
- * 
+ *
  * State: None
- * 
+ *
  * CompaniesDataFetcher -> CompanyList -> CompanyCard
  */
-function CompanyList({companies}) {
+function CompanyList({ companies }) {
     return (
-        <ul className="Jobly-CompanyList List">
-            {companies.map(company => 
-            <li key={company.handle}><CompanyCard company={company}/></li>)}
-        </ul>
+        <div className="CompanyList .col-sm-12 .col-md-6 .offset-md-3">
+        {
+            companies.map(company =>
+
+                // key={company.handle}
+                // className=".col-sm-12 .col-md-6 .offset-md-3">
+                <CompanyCard key={company.handle} company={company} />)
+        }
+        </div>
     )
+
 }
 
 export default CompanyList;
