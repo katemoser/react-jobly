@@ -1,7 +1,6 @@
 import "./HomePage.css";
 import { useContext } from "react";
 import UserContext from "./userContext";
-import { Link } from "react-router-dom";
 
 /** HomePage component that displays different message if you are logged in or
  * logged out
