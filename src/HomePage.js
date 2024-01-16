@@ -5,11 +5,11 @@ import { Link } from "react-router-dom";
 
 /** HomePage component that displays different message if you are logged in or
  * logged out
- * 
+ *
  * props: none
- * 
+ *
  * state: none
- * 
+ *
  * context:
  * - currentUser : a user object
  *      ex. { username, firstName, lastName, isAdmin, jobs }
@@ -17,27 +17,27 @@ import { Link } from "react-router-dom";
  *
  * App -> Routes -> HomePage - - - NLI - > {LogInForm, SignUpForm}
  */
- function HomePage(){
+function HomePage() {
 
     const { currentUser } = useContext(UserContext);
 
-     return (
-         <div className="Jobly-HomePage">
-             <h1>Jobly</h1>
-             <h3>All the jobs in one, convenient place.</h3>
-             {!currentUser && 
-             <div>
-                <a href="/login">
-                    <button>Login</button>
-                </a>
-                <a href="/signup">
-                    <button>Sign Up!</button>
-                </a>
-             </div>
-             }
-             
-         </div>
-     )
+    return (
+        <div className="Jobly-HomePage">
+            <h1>Jobly</h1>
+            <h3>All the jobs in one, convenient place.</h3>
+            {!currentUser &&
+                <div>
+                    <a href="/login">
+                        <button className="btn btn-primary btn-lg">Login</button>
+                    </a>
+                    <a href="/signup">
+                        <button className="btn btn-primary btn-lg">Sign Up!</button>
+                    </a>
+                </div>
+            }
+
+        </div>
+    );
 }
 
 export default HomePage;
