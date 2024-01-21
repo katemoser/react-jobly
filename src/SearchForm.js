@@ -35,7 +35,7 @@ function SearchForm({ handleSave }) {
     }
 
     return (
-        <Form onSubmit={handleSubmit} className="">
+        <Form onSubmit={handleSubmit} className="Jobly-SearchForm d-flex justify-content-center">
             <Row className="row-cols-lg-auto g-3 align-items-center">
                 <Col>
 

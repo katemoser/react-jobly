@@ -1,8 +1,8 @@
 .Jobly-SearchForm{
-    margin-top:5em;
+    margin-top:2em;
 }
 
-.Jobly-SearchForm input {
+/* .Jobly-SearchForm input {
     padding: 1em;
     font-size: larger;
     width: 20em;
@@ -17,4 +17,4 @@
     border-radius: 8px;
     border: none;
     color: white;
-}
+} */

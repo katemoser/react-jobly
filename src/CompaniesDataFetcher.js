@@ -6,12 +6,12 @@ import Loading from "./Loading";
 
 /** CompaniesDataFetcher component fetches a list of company objects from API
  * GET request and renders SearchForm and CompanyList components
- * 
+ *
  * Props: None
- * 
+ *
  * State: List of company objects
  *  ex. [ { handle, name, description, numEmployees, logoUrl }, ...]
- * 
+ *
  * Routes -> CompaniesDataFetcher -> {SearchForm, CompanyList}
  */
 function CompaniesDataFetcher(){
@@ -30,13 +30,13 @@ function CompaniesDataFetcher(){
     // TODO: Consider having constants for response from API GET request
     /** Fetches list of companies filtered by search term and sets it as state */
     async function searchCompanies(searchTerm){
-        setCompanies(await JoblyApi.getCompanies({ name: searchTerm}));
+        setCompanies(await JoblyApi.getCompanies({ nameLike: searchTerm}));
     }
 
     if (!companies) return <Loading />
 
     return (
-        <div>
+        <div >
             <SearchForm handleSave={searchCompanies}/>
             <CompanyList companies={companies} />
         </div>

@@ -22,7 +22,7 @@ function HomePage() {
 
     return (
         <div className="Jobly-HomePage">
-            <h1>Jobly</h1>
+            <h1>LoopedIn</h1>
             <h3>All the jobs in one, convenient place.</h3>
             {!currentUser &&
                 <div>

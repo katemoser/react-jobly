@@ -1,22 +1,22 @@
 import React from "react";
 import JobCard from "./JobCard";
-import "./List.css";
+import "./JobList.css";
 
-/** JobList component shows a list of jobs obtained from 
+/** JobList component shows a list of jobs obtained from
  * JobsDataFetcher component
- * 
+ *
  * Props:
  *  jobs: a list of job objects
  * ex. [ { id, title, salary, equity, companyHandle, companyName }, ...]
- * 
+ *
  * State: None
- * 
+ *
  * { JobsDataFetcher, CompanyDetail } -> JobList -> JobCard
  */
 function JobList({jobs}) {
     return (
-        <ul className="Jobly-Joblist List">
-            {jobs.map(job => 
+        <ul className="JobList List">
+            {jobs.map(job =>
             <li key={job.id}><JobCard job={job}/></li>)}
         </ul>
     )

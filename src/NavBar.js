@@ -43,7 +43,7 @@ function NavBar({ logout }) {
   return (
     <Navbar color="light" fixed="" expand="sm">
       <NavbarBrand to="/">
-        Jobly
+        LoopedIn
       </NavbarBrand>
 
       <NavbarToggler onClick={toggle} />
