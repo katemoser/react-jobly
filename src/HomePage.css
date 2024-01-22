@@ -1,5 +1,8 @@
-.Jobly-HomePage {
-    margin-top: 13em;
+.HomePage {
+    /* put around the vertical center of page */
+    height: calc(100vh - 150px);
+    display: flex;
+    align-items: center;
     color: white;
     /* text-shadow: 6px 3px 3px rgba(28,12,8,0.58); */
     font-size: larger;

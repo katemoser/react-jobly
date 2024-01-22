@@ -11,7 +11,7 @@ import {
   Alert,
   FormGroup,
 } from "reactstrap";
-import "./LoginForm.css"
+import "./LoginForm.css";
 
 /** LoginForm component, which displays login form for non-logged-in user
  *
@@ -33,7 +33,7 @@ function LoginForm({ handleLogin }) {
   };
 
   const [formData, setFormData] = useState(initialData);
-  const [formErrors, setFormErrors] = useState([])
+  const [formErrors, setFormErrors] = useState([]);
 
   /** Updates state with form input value */
   function handleChange(evt) {
@@ -49,56 +49,63 @@ function LoginForm({ handleLogin }) {
   /** Calls parent component function with input data */
   async function handleSubmit(evt) {
     evt.preventDefault();
-    try{
+    try {
       await handleLogin(formData);
       // return <Navigate to="/companies" />
       // navigate('/companies')
-    } catch (err){
+    } catch (err) {
       // console.log("Caught an error!", err)
       setFormErrors(err);
     }
   }
 
   return (
-    <Container className="LoginForm card border-primary mb-3">
-      <Form onSubmit={handleSubmit}>
-        {/* <Row>
+
+    <Row >
+      <Col xs="1"></Col>
+      <Col xs="10">
+        <Container className="LoginForm card border-primary mb-3">
+          <Form onSubmit={handleSubmit}>
+            {/* <Row>
           <Col md="6" sm="12"> */}
-          <FormGroup>
-            <Label htmlFor="username-input">Username</Label>
-            <Input
-              id="username-input"
-              name="username"
-              onChange={handleChange}
-              required
-            ></Input>
+            <FormGroup>
+              <Label htmlFor="username-input">Username</Label>
+              <Input
+                id="username-input"
+                name="username"
+                onChange={handleChange}
+                required
+              ></Input>
             </FormGroup>
-          {/* </Col>
+            {/* </Col>
 
           <Col md="6" sm="12"> */}
-          <FormGroup>
-            <Label htmlFor="password-input">Password</Label>
-            <Input
-              id="password-input"
-              name="password"
-              onChange={handleChange}
-              type="password"
-              required
-            ></Input>
+            <FormGroup>
+              <Label htmlFor="password-input">Password</Label>
+              <Input
+                id="password-input"
+                name="password"
+                onChange={handleChange}
+                type="password"
+                required
+              ></Input>
             </FormGroup>
-          {/* </Col>
+            {/* </Col>
         </Row> */}
 
-        {formErrors.length
-          ? <Alert color="danger">
-              {formErrors}
-            </Alert>
-          : null
-        }
+            {formErrors.length
+              ? <Alert color="danger">
+                {formErrors}
+              </Alert>
+              : null
+            }
 
-        <Button color="primary" outline>Submit</Button>
-      </Form>
-    </Container>
+            <Button color="primary" outline>Submit</Button>
+          </Form>
+        </Container>
+      </Col>
+      <Col xs="1"></Col>
+    </Row>
   );
 }
 

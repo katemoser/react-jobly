@@ -41,8 +41,8 @@ function NavBar({ logout }) {
   const toggle = () => setIsOpen(!isOpen);
 
   return (
-    <Navbar color="light" fixed="" expand="sm">
-      <NavbarBrand to="/">
+    <Navbar className="NavBar" fixed="" expand="sm">
+      <NavbarBrand href="/">
         LoopedIn
       </NavbarBrand>
 

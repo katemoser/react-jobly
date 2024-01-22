@@ -21,19 +21,22 @@ function HomePage() {
     const { currentUser } = useContext(UserContext);
 
     return (
-        <div className="Jobly-HomePage">
-            <h1>LoopedIn</h1>
-            <h3>All the jobs in one, convenient place.</h3>
-            {!currentUser &&
-                <div>
-                    <a href="/login">
-                        <button className="btn btn-primary btn-lg">Login</button>
-                    </a>
-                    <a href="/signup">
-                        <button className="btn btn-primary btn-lg">Sign Up!</button>
-                    </a>
-                </div>
-            }
+        <div className="HomePage">
+            <div className="container">
+                <h1>LoopedIn</h1>
+                <h3>All the jobs in one, convenient place.</h3>
+
+                {!currentUser &&
+                    <div>
+                        <a href="/login">
+                            <button className="btn btn-primary btn-lg">Login</button>
+                        </a>
+                        <a href="/signup">
+                            <button className="btn btn-primary btn-lg">Sign Up!</button>
+                        </a>
+                    </div>
+                }
+            </div>
 
         </div>
     );

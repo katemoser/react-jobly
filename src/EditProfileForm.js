@@ -13,6 +13,7 @@ import {
   FormGroup,
   Alert,
 } from "reactstrap";
+import "./EditProfileForm.css";
 
 /** EditProfileForm component, which displays form to edit user info for logged-in user
  *
@@ -65,7 +66,7 @@ function EditProfileForm({ handleSaveChanges }) {
       });
 
       // TODO: redirect to profile page, once created
-      navigate("/companies")
+      navigate("/");
 
     } catch (err) {
       console.log("ERROR IN FORM", err);
@@ -74,70 +75,77 @@ function EditProfileForm({ handleSaveChanges }) {
   }
 
   return (
-    <Container className="jobly-form">
-      <Form onSubmit={handleSubmit}>
-        <FormGroup>
-          <Label htmlFor="username-input">Username</Label>
-          <Input
-            disabled
-            id="username-input"
-            name="username"
-            onChange={handleChange}
-            value={formData.username}
-          ></Input>
-        </FormGroup>
-        <Row>
-          <Col md={6}>
-            <FormGroup>
-              <Label htmlFor="firstName-input">First Name</Label>
-              <Input
-                required
-                id="firstName-input"
-                name="firstName"
-                onChange={handleChange}
-                value={formData.firstName}
-              ></Input>
-            </FormGroup>
-          </Col>
-          <Col md={6}>
-            <FormGroup>
-              <Label htmlFor="lastName-input">Last Name</Label>
-              <Input
-                required
-                id="lastName-input"
-                name="lastName"
-                onChange={handleChange}
-                value={formData.lastName}
-              ></Input>
-            </FormGroup>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <FormGroup>
-              <Label htmlFor="email-input">Email</Label>
-              <Input
-                required
-                id="email-input"
-                name="email"
-                type="email"
-                onChange={handleChange}
-                value={formData.email}
-              ></Input>
-            </FormGroup>
-          </Col>
-        </Row>
+      <Row className="EditProfileForm">
+        <Col xs="1"></Col>
+        <Col xs="10">
 
-        {formErrors.length
-          ? <Alert color="danger">
-              {formErrors}
-            </Alert>
-          : null
-        }
+          <Container className="EditProfileForm-form card mb-3">
+            <Form onSubmit={handleSubmit}>
+              <FormGroup>
+                <Label htmlFor="username-input">Username</Label>
+                <Input
+                  disabled
+                  id="username-input"
+                  name="username"
+                  onChange={handleChange}
+                  value={formData.username}
+                ></Input>
+              </FormGroup>
+              <Row>
+                <Col md={6}>
+                  <FormGroup>
+                    <Label htmlFor="firstName-input">First Name</Label>
+                    <Input
+                      required
+                      id="firstName-input"
+                      name="firstName"
+                      onChange={handleChange}
+                      value={formData.firstName}
+                    ></Input>
+                  </FormGroup>
+                </Col>
+                <Col md={6}>
+                  <FormGroup>
+                    <Label htmlFor="lastName-input">Last Name</Label>
+                    <Input
+                      required
+                      id="lastName-input"
+                      name="lastName"
+                      onChange={handleChange}
+                      value={formData.lastName}
+                    ></Input>
+                  </FormGroup>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <FormGroup>
+                    <Label htmlFor="email-input">Email</Label>
+                    <Input
+                      required
+                      id="email-input"
+                      name="email"
+                      type="email"
+                      onChange={handleChange}
+                      value={formData.email}
+                    ></Input>
+                  </FormGroup>
+                </Col>
+              </Row>
 
-        <Button>Submit</Button>
-      </Form>
-    </Container>
+              {formErrors.length
+                ? <Alert color="danger">
+                  {formErrors}
+                </Alert>
+                : null
+              }
+
+              <Button>Submit</Button>
+            </Form>
+          </Container>
+        </Col>
+        <Col xs="1"></Col>
+      </Row>
   );
 }
 

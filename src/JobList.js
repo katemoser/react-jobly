@@ -1,6 +1,8 @@
 import React from "react";
+import {List} from "reactstrap";
 import JobCard from "./JobCard";
 import "./JobList.css";
+
 
 /** JobList component shows a list of jobs obtained from
  * JobsDataFetcher component
@@ -15,10 +17,10 @@ import "./JobList.css";
  */
 function JobList({jobs}) {
     return (
-        <ul className="JobList List">
+        <List className="JobList">
             {jobs.map(job =>
             <li key={job.id}><JobCard job={job}/></li>)}
-        </ul>
+        </List>
     )
 }
 

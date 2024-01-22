@@ -63,7 +63,10 @@ function SignupForm({ handleSignup }) {
   }
 
   return (
-    <Container className="SignupForm card border-primary mb-3">
+    <Row className="SignupForm">
+    <Col xs="1"></Col>
+      <Col xs="10">
+    <Container className="card border-primary mb-3">
       <Form onSubmit={handleSubmit}>
         <Row>
           <Col md={6}>
@@ -146,6 +149,9 @@ function SignupForm({ handleSignup }) {
 
       </Form>
     </Container>
+    </Col>
+    <Col xs="1"></Col>
+    </Row>
   );
 }
 

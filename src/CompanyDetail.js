@@ -41,22 +41,15 @@ function CompanyDetail() {
 
     if (!company && !errors.length) return <Loading />;
 
+    if(errors.length) return <ErrorMessage error={errors} />
     // TODO: refactor error below to return a whole 404 component
     return (
-        <div>
-            {errors.length
-                ?
-                <Alert color="danger">
-                    {errors}
-                </Alert>
-                :
-                <div className="Jobly-CompanyDetail">
-                    <h1>{company.name}</h1>
-                    <h2>{company.description}</h2>
+
+                <div className="CompanyDetail">
+                    <h1 classname="CompanyDetail-header">{company.name}</h1>
+                    <h3 classname="CompanyDetail-description">{company.description}</h3>
                     <JobList jobs={company.jobs} />
                 </div>
-            }
-        </div>
     );
 
 }

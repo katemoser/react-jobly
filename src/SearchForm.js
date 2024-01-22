@@ -35,18 +35,17 @@ function SearchForm({ handleSave }) {
     }
 
     return (
-        <Form onSubmit={handleSubmit} className="Jobly-SearchForm d-flex justify-content-center">
+        <Form onSubmit={handleSubmit} className="SearchForm d-flex justify-content-center">
             <Row className="row-cols-lg-auto g-3 align-items-center">
                 <Col>
-
                     <Label className="visually-hidden" for="searchTerm">
                         Search Term
                     </Label>
                     <Input
-                    id="searchTerm"
+                        id="searchTerm"
                         onChange={handleChange}
                         name="searchInput"
-                        placeholder="Enter search term">
+                        placeholder="Enter search term...">
                     </Input>
 
                 </Col>
